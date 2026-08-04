@@ -58,7 +58,7 @@ jobs:
           cd spack-stack
           git clone -c feature.manyFiles=true https://github.com/JCSDA/spack.git
           source spack/share/spack/setup-env.sh
-          spack env create upp-env UPP/ci/spack.yaml
+          spack env create upp-env ${{ github.workspace }}/UPP/ci/spack.yaml
           spack env activate upp-env
           sudo apt install cmake
           spack external find
