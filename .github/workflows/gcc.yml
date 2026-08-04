@@ -97,6 +97,9 @@ jobs:
           spack env activate upp-env
           export CC=mpicc
           export FC=mpif90
+          export CMAKE_Fortran_COMPILER=gfortran-10
+          export CMAKE_C_COMPILER=gcc-10
+          export CMAKE_CXX_COMPILER=g++-10
           cd UPP
           mkdir -p build && cd build
           cmake -DENABLE_DOCS=ON -DCMAKE_INSTALL_PREFIX=../install ..
