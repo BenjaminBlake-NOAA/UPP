@@ -1,5 +1,5 @@
 name: GCC Linux Build
-on: [push, pull_request, workflow_dispatch]
+on: [push, workflow_dispatch]
 
 
 # Use custom shell with -l so .bash_profile is sourced
@@ -57,8 +57,7 @@ jobs:
           git clone https://github.com/JCSDA/spack-stack.git
           git clone -c feature.manyFiles=true https://github.com/JCSDA/spack.git ${SPACK_STACK_DIR}/spack
           git clone https://github.com/JCSDA/spack-packages.git ${SPACK_STACK_DIR}/repos/builtin
-          cd ${SPACK_STACK_DIR}
-          source spack/share/spack/setup-env.sh
+          source ${SPACK_STACK_DIR}/spack/share/spack/setup-env.sh
           spack env create upp-env ${{ github.workspace }}/UPP/ci/spack.yaml
           spack env activate upp-env
           sudo apt install cmake
@@ -90,8 +89,10 @@ jobs:
 
       - name: build-upp
         run: |
-          cd ${SPACK_STACK_DIR}
-          source spack/share/spack/setup-env.sh
+          git clone https://github.com/JCSDA/spack-stack.git
+          git clone -c feature.manyFiles=true https://github.com/JCSDA/spack.git ${SPACK_STACK_DIR}/spack
+          git clone https://github.com/JCSDA/spack-packages.git ${SPACK_STACK_DIR}/repos/builtin
+          source $(pwd)/spack-stack/spack/share/spack/setup-env.sh
           spack env activate upp-env
           export CC=mpicc
           export FC=mpif90
