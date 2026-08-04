@@ -57,6 +57,9 @@ jobs:
           git clone https://github.com/JCSDA/spack-stack.git
           cd spack-stack
           git clone -c feature.manyFiles=true https://github.com/JCSDA/spack.git
+          cd repos
+          git clone https://github.com/JCSDA/spack-packages.git builtin
+          cd ${SPACK_STACK_DIR}
           source spack/share/spack/setup-env.sh
           spack env create upp-env ${{ github.workspace }}/UPP/ci/spack.yaml
           spack env activate upp-env
