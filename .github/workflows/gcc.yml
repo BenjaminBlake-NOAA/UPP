@@ -95,6 +95,7 @@ jobs:
           source $(pwd)/spack-stack/spack/share/spack/setup-env.sh
           spack env create upp-env ${{ github.workspace }}/UPP/ci/spack.yaml
           spack env activate upp-env
+          which mpif90
           export CC=mpicc
           export FC=mpif90
           cd UPP
