@@ -95,11 +95,10 @@ jobs:
           source $(pwd)/spack-stack/spack/share/spack/setup-env.sh
           spack env create upp-env ${{ github.workspace }}/UPP/ci/spack.yaml
           spack env activate upp-env
-          which mpif90
-          export CC=mpicc
-          export FC=mpif90
+          export CC=gcc-10
+          export FC=gfortran-10
           cd UPP
           mkdir -p build && cd build
-          cmake -DENABLE_DOCS=ON -DCMAKE_INSTALL_PREFIX=../install ..
+          cmake -DENABLE_DOCS=ON -DCMAKE_INSTALL_PREFIX=../install -DCMAKE_C_COMPILER=mpicc -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_Fortran_COMPILER=mpif90 ..
           make -j2 VERBOSE=1
           make install
