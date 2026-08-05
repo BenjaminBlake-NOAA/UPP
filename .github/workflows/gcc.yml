@@ -99,6 +99,6 @@ jobs:
           export FC=gfortran-10
           cd UPP
           mkdir -p build && cd build
-          cmake -DENABLE_DOCS=ON -DCMAKE_INSTALL_PREFIX=../install -DCMAKE_C_COMPILER=mpicc -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_Fortran_COMPILER=mpif90 ..
+          cmake -DENABLE_DOCS=ON -DCMAKE_INSTALL_PREFIX=../install ..
           make -j2 VERBOSE=1
           make install
