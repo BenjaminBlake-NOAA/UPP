@@ -85,18 +85,15 @@ jobs:
           path: |
             spack
             ~/.spack
-          key: spack-${{ runner.os }}-${{ env.cache_key }}-${{ hashFiles('UPP/ci/spack.yaml') }}
+          key: spack-${{ runner.os }}-${{ env.cache_key }}-${{ hashFiles('${{ github.workspace }}/UPP/ci/spack.yaml') }}
 
       - name: build-upp
         run: |
-          git clone https://github.com/JCSDA/spack-stack.git
-          git clone -c feature.manyFiles=true https://github.com/JCSDA/spack.git ${SPACK_STACK_DIR}/spack
-          git clone https://github.com/JCSDA/spack-packages.git ${SPACK_STACK_DIR}/repos/builtin
-          source $(pwd)/spack-stack/spack/share/spack/setup-env.sh
+          source spack-stack/spack/share/spack/setup-env.sh
           spack env create upp-env ${{ github.workspace }}/UPP/ci/spack.yaml
           spack env activate upp-env
-          export CC=gcc-10
-          export FC=gfortran-10
+          export CC=mpicc
+          export FC=mpif90
           cd UPP
           mkdir -p build && cd build
           cmake -DENABLE_DOCS=ON -DCMAKE_INSTALL_PREFIX=../install ..
